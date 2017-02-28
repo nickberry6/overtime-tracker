@@ -52,4 +52,26 @@ describe 'posts' do
       expect(User.last.posts.last.rationale).to eq("User_Association")
     end
   end
+
+  describe 'edit' do
+    before do
+      @post = FactoryGirl.create(:post, user_id: @user.id)
+    end
+
+    it 'can be reached by clicking edit on index page' do
+      visit posts_path
+
+      click_link("edit_#{@post.id}")
+      expect(page.status_code).to eq(200)
+    end
+
+    it 'can be edited' do
+      visit edit_post_path(@post)
+
+      fill_in 'post[date]', with: Date.today
+      fill_in 'post[rationale]', with: "edited content"
+      click_on "Save"
+      expect(page.status_code).to eq(200)
+    end
+  end
 end
