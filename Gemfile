@@ -19,6 +19,7 @@ gem 'devise', '~> 4.2'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 
 group :development, :test do
+  gem 'factory_girl_rails', '~> 4.8'
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'

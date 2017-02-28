@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'posts' do
   before do
-    @user = User.create(email: "test@test.com", password: "asdfasdf", password_confirmation: "asdfasdf", first_name: "John", last_name: "Smith")
+    @user = FactoryGirl.create(:user)
     login_as(@user, :scope => :user)
   end
 
@@ -20,10 +20,10 @@ describe 'posts' do
     end
 
     it 'has a list of posts' do
-      post1 = Post.create(date: Date.today, rationale: 'anything', user_id: @user.id)
-      post2 = Post.create(date: Date.today, rationale: 'post2', user_id: @user.id)
+      post1 = FactoryGirl.create(:post, user_id: @user.id)
+      post2 = FactoryGirl.create(:second_post, user_id: @user.id)
       visit posts_path
-      expect(page).to have_content(/anything|post2/)
+      expect(page).to have_content(/rationale|content/)
     end
   end
 
