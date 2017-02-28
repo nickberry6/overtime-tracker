@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'posts' do
   before do
-    user = User.create(email: "test@test.com", password: "asdfasdf", password_confirmation: "asdfasdf", first_name: "John", last_name: "Smith")
-    login_as(user, :scope => :user)
+    @user = User.create(email: "test@test.com", password: "asdfasdf", password_confirmation: "asdfasdf", first_name: "John", last_name: "Smith")
+    login_as(@user, :scope => :user)
   end
 
   describe 'index' do
@@ -20,8 +20,8 @@ describe 'posts' do
     end
 
     it 'has a list of posts' do
-      post1 = Post.create(date: Date.today, rationale: 'anything')
-      post2 = Post.create(date: Date.today, rationale: 'post2')
+      post1 = Post.create(date: Date.today, rationale: 'anything', user_id: @user.id)
+      post2 = Post.create(date: Date.today, rationale: 'post2', user_id: @user.id)
       visit posts_path
       expect(page).to have_content(/anything|post2/)
     end
