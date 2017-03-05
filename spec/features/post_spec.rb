@@ -75,20 +75,24 @@ describe 'posts' do
       @post = FactoryGirl.create(:post, user_id: @user.id)
     end
 
-    it 'can be reached by clicking edit on index page' do
-      visit posts_path
-
-      click_link("edit_#{@post.id}")
-      expect(page.status_code).to eq(200)
-    end
-
-    it 'can be edited' do
+    it 'can be edited by authorized user' do
       visit edit_post_path(@post)
 
       fill_in 'post[date]', with: Date.today
       fill_in 'post[rationale]', with: "edited content"
       click_on "Save"
       expect(page.status_code).to eq(200)
+    end
+
+    it 'cannot be edited by a non authorized user' do
+      logout(:user)
+      @non_authorized_user = FactoryGirl.create(:non_authorized_user)
+      login_as(@non_authorized_user, :scope => :user)
+
+
+      visit edit_post_path(@post)
+
+      expect(current_path).to eq(root_path)
     end
   end
 end

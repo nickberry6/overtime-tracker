@@ -27,11 +27,6 @@ describe 'navigate' do
       visit edit_post_path(@post)
 
       expect(page).to_not have_content('Approved')
-      # choose 'post_status_approved'
-      # click_on "Save"
-      #
-      # expect(@post.reload.status).to eq('submitted')
-
     end
   end
 end
