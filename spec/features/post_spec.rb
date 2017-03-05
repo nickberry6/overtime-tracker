@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'posts' do
+describe 'navigate' do
   before do
     @user = FactoryGirl.create(:user)
     login_as(@user, :scope => :user)
