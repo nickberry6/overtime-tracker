@@ -25,6 +25,18 @@ describe 'posts' do
       visit posts_path
       expect(page).to have_content(/rationale|content/)
     end
+
+    it 'has a scope so that only post creators can see their posts' do
+      post1 = FactoryGirl.create(:post, user_id: @user.id)
+      post2 = FactoryGirl.create(:second_post, user_id: @user.id)
+
+      other_user = FactoryGirl.create(:non_authorized_user)
+      post_from_other_user = Post.create(date: Date.today, rationale: "This post shouldnt be seen.", user_id: other_user.id)
+
+      visit posts_path
+
+      expect(page).to_not have_content(/This post shouldnt be seen./)
+    end
   end
 
   describe 'new' do

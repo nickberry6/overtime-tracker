@@ -11,4 +11,10 @@ FactoryGirl.define do
     user
   end
 
+  factory :post_from_other_user, class: "Post" do
+    date Date.yesterday
+    rationale "content"
+    user
+  end
+
 end
