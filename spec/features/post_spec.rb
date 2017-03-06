@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'navigate' do
+describe 'posts' do
   before do
     @user = FactoryGirl.create(:user)
     login_as(@user, :scope => :user)
@@ -31,7 +31,7 @@ describe 'navigate' do
       post2 = FactoryGirl.create(:second_post, user_id: @user.id)
 
       other_user = FactoryGirl.create(:non_authorized_user)
-      post_from_other_user = Post.create(date: Date.today, rationale: "This post shouldnt be seen.", user_id: other_user.id)
+      post_from_other_user = Post.create(date: Date.today, rationale: "This post shouldnt be seen.", overtime_request: 3.5, user_id: other_user.id)
 
       visit posts_path
 
@@ -68,14 +68,14 @@ describe 'navigate' do
     it 'can be created from new form page' do
       fill_in 'post[date]', with: Date.today
       fill_in 'post[rationale]', with: "Some Rationale"
-      click_on "Save"
-
-      expect(page).to have_content("Some Rationale")
+      fill_in 'post[overtime_request]', with: 4.5
+      expect { click_on "Save" }.to change(Post, :count).by(1)
     end
 
     it 'will have a user associated with it' do
       fill_in 'post[date]', with: Date.today
       fill_in 'post[rationale]', with: "User_Association"
+      fill_in 'post[overtime_request]', with: 4.5
       click_on "Save"
 
       expect(User.last.posts.last.rationale).to eq("User_Association")

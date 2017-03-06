@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'navigate' do
+describe 'approval workflow' do
   before do
     @admin_user = FactoryGirl.create(:admin_user)
     login_as(@admin_user, :scope => :user)
