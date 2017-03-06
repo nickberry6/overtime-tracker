@@ -21,6 +21,7 @@ gem 'gritter', '~> 1.2'
 gem 'administrate', '~> 0.3.0'
 gem 'bourbon'
 gem 'pundit', '~> 1.1'
+gem 'twilio-ruby', '~> 4.13'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.8'
