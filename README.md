@@ -21,4 +21,4 @@
 - x Icons from glyphicons
 - x Update the styles for forms
 
-## Refactor TODOS:
+## TODOS:
